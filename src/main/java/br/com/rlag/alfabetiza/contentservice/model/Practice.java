@@ -19,7 +19,7 @@ public class Practice {
     private String imageUrl;  // Imagem descritiva da prática
 
     @OneToMany(mappedBy = "practice", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Answer> possibleAnswers;  // Lista de respostas possíveis
+    private List<Answer> answerOptions;  // Lista de respostas possíveis
 
     private Long correctAnswerId;  // Referência para a resposta correta
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UnitService {
@@ -18,23 +19,33 @@ public class UnitService {
     }
 
     public Unit getUnitById(Long id) {
-        return unitRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Unit not found"));
+        return unitRepository.findById(id).orElse(null);
     }
 
-    public Unit createUnit(Unit unit) {
+    public Unit saveUnit(Unit unit) {
         return unitRepository.save(unit);
     }
 
     public Unit updateUnit(Long id, Unit unitDetails) {
-        Unit unit = getUnitById(id);
-        unit.setName(unitDetails.getName());
-        unit.setDescription(unitDetails.getDescription());
-        unit.setObjectives(unitDetails.getObjectives());
-        return unitRepository.save(unit);
+        Optional<Unit> optionalUnit = unitRepository.findById(id);
+        if (optionalUnit.isPresent()) {
+            Unit unit = optionalUnit.get();
+            unit.setName(unitDetails.getName());
+            unit.setDescription(unitDetails.getDescription());
+            unit.setObjectives(unitDetails.getObjectives());
+            unit.setLessons(unitDetails.getLessons());
+            return unitRepository.save(unit);
+        } else {
+            return null;
+        }
     }
 
-    public void deleteUnit(Long id) {
-        unitRepository.deleteById(id);
+    public boolean deleteUnit(Long id) {
+        if (unitRepository.existsById(id)) {
+            unitRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

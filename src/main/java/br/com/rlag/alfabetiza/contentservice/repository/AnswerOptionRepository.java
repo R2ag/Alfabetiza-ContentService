@@ -1,9 +1,9 @@
 package br.com.rlag.alfabetiza.contentservice.repository;
 
-import br.com.rlag.alfabetiza.contentservice.model.Lesson;
+import br.com.rlag.alfabetiza.contentservice.model.AnswerOption;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LessonReposytory extends JpaRepository<Lesson, Integer> {
+public interface AnswerOptionRepository extends JpaRepository<AnswerOption, Long> {
 }

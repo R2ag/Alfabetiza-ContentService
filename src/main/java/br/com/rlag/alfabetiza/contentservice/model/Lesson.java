@@ -15,6 +15,8 @@ public class Lesson {
 
     private String name;
 
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "unit_id")
     private Unit unit;
